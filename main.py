@@ -44,8 +44,8 @@ async def button_handler(update:Update, context:ContextTypes.DEFAULT_TYPE):
         return
     row = int(data[0])
     col = int(data[1])
-    if tictactoe.checkOccupied(row,col):
-        await context.bot.send_message(chat_id=chat_id, text="It is already occupied.")
+    if tictactoe.checkOccupied(row, col):
+        await query.answer(text="It is already occupied.", show_alert=True)
 
     else:
         tictactoe.board[row][col] = 'x'
