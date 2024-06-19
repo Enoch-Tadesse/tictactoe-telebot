@@ -1,8 +1,12 @@
+import os
 import tictactoe
+from dotenv import load_dotenv
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, CallbackQueryHandler
 
 
+load_dotenv()
+TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 def board():
     return [
         [InlineKeyboardButton(tictactoe.board[0][0], callback_data="00"),
@@ -74,7 +78,7 @@ async def button_handler(update:Update, context:ContextTypes.DEFAULT_TYPE):
 
 
 if __name__ == '__main__':
-    app = ApplicationBuilder().token(token).build()
+    app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(button_handler))
     app.run_polling()
